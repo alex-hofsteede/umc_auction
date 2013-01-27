@@ -1,0 +1,17 @@
+{% extends 'auction/base.html' %}
+
+{% block content %}
+
+Name: {{bidder.name}}<br/>
+Code: {{bidder.code}}<br/>
+Email: {{bidder.email}}<br/>
+<h3>Purchases:</h3>
+<ul>
+{% for purchase in bidder.purchases.all %}
+<li>
+    <a href="{{purchase.item.get_absolute_url}}">{{purchase.item.code}}, {{purchase.item.name}}</a>
+</li>
+{% endfor %}
+</ul>
+<a href="{{bidder.get_absolute_url}}/checkout">Checkout</a>
+{% endblock %}

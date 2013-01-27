@@ -1,0 +1,11 @@
+{% extends 'auction/base.html' %}
+
+{% block content %}
+
+{% if form %}
+    <form action="/bidders/new" method="post">{% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" value="Create Bidder" />
+    </form>
+{% endif %}
+{% endblock %}

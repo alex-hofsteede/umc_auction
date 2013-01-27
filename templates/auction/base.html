@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css' />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="description" content="Simple Template #2 from simpletemplates.org" />
+    <meta name="keywords" content="simple #2, template, simpletemplates.org" />
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}/stylesheets/style.css" />
+    <title>UMC Auction</title>
+  </head>
+  <body>
+
+    <div id="top">
+
+      {% block header %}
+      <div id="header">
+        <h1>UMC auction</h1>
+      </div>
+
+        {% block topmenu %}
+        <div id="topmenu">
+          <!--<ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">What We Do</a></li>
+            <li><a href="#">The Team</a></li>
+            <li><a href="#">Contact Us</a></li>
+        </ul>-->
+        </div>
+        {% endblock %}
+      {% endblock %}
+
+      <div class="clear"> </div>
+
+    </div>
+
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    <div id="contentwrap">
+        <div class="cright">
+            {% block content %}
+
+            {% endblock %}
+        </div>
+
+        <div class="cleft">
+            {% block leftmenu %}
+
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/items">Items</a></li>
+                <li><a href="/bidders">Bidders</a></li>
+            </ul>
+
+      {% endblock %}
+      </div>
+
+      <div class="clear"> </div>
+
+    </div>
+
+    {% block footer %}
+    <div id="footer">
+
+      <div class="left">
+      </div>
+
+      <div class="clear"> </div>
+
+    </div>
+    {% endblock %}
+
+  </body>
+</html>

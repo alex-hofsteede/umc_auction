@@ -1,0 +1,30 @@
+{% extends 'auction/base.html' %}
+
+{% block content %}
+
+Name: {{item.name}}<br/>
+Code: {{item.code}}<br/>
+Unit Price: ${{item.unit_price}}<br/>
+{{item.quantity_sold}} sold<br/>
+{{item.quantity_remaining_str}} remaining<br/>
+
+{% if item.quantity_sold > 0 %}
+    <h3>People who purchased this item:</h3>
+    <ul>
+    {% for purchase in item.purchases.all %}
+    <li>
+        <a href="{{purchase.bidder.get_absolute_url}}">{{purchase.bidder.code}}, {{purchase.bidder.name}}</a>
+    </li>
+    {% endfor %}
+    </ul>
+{% endif %}
+{% if item.quantity_remaining != 0 %}
+<div class="action">
+    <h3>Purchase item:</h3>
+    <form action="{{item.get_absolute_url}}/purchase_item" method="post">{% csrf_token %}
+    {{purchase_form.as_p}}
+    <input type="submit" value="Submit" />
+    </form>
+</div>
+{% endif %}
+{% endblock %}

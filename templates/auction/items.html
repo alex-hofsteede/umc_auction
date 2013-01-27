@@ -1,0 +1,14 @@
+{% extends 'auction/base.html' %}
+
+{% block content %}
+
+<ul>
+{% for item in items %}
+    <li>
+    <a href="{{item.get_absolute_url}}">{{item.code}}, {{item.name}}</a>
+    
+    </li>
+{% endfor %}
+</ul>
+<a href="items/new">Create new item</a>
+{% endblock %}
