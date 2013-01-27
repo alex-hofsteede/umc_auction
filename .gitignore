@@ -3,3 +3,4 @@
 *.swp
 db/
 .DS_Store
+umc_auction/settings_production.py
