@@ -90,21 +90,21 @@ def purchase_item(request, item_id):
 
 @login_required
 def checkout(request, bidder_id):
-    b = get_object_or_404(Bidder, id=bidder_id)
+    bidder = get_object_or_404(Bidder, id=bidder_id)
     if request.method == 'POST':
         form = CheckoutForm(request.POST)
         if form.is_valid():
-            b.email = form.cleaned_data['email']
-            b.save()
-            for p in b.purchases.all():
+            bidder.email = form.cleaned_data['email']
+            bidder.save()
+            for p in bidder.purchases.all():
                 p.paid = True
                 p.save()
                 send_mail("UMC School auction receipt","",settings.DEFAULT_FROM_EMAIL,[bidder.email], fail_silently=True)
                 messages.info(request, "Sent receipt to %s" % (bidder.email))
             return redirect('/')
     else:
-        form = CheckoutForm(initial={'email':b.email})
-    return render_to_response('auction/checkout.html', {'bidder':b, 'form':form}, context_instance=RequestContext(request))
+        form = CheckoutForm(initial={'email':bidder.email})
+    return render_to_response('auction/checkout.html', {'bidder':bidder, 'form':form}, context_instance=RequestContext(request))
 
 def get_or_none(model, **kwargs):
     try:
