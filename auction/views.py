@@ -80,7 +80,6 @@ def purchase_item(request, item_id):
             if bidder and item and (quantity <= item.quantity_remaining() or item.quantity_remaining() == -1):
                 p = Purchase(bidder=bidder, item=item, quantity=quantity, unit_price=unit_price)
                 p.save()
-                send_mail("UMC School auction receipt","",settings.DEFAULT_FROM_EMAIL,[bidder.email], fail_silently=True)
                 messages.info(request, "%s successfully purchased %s" % (bidder.name, item.name))
                 return redirect(item)
         else:
@@ -100,7 +99,8 @@ def checkout(request, bidder_id):
             for p in b.purchases.all():
                 p.paid = True
                 p.save()
-            #TODO success message
+                send_mail("UMC School auction receipt","",settings.DEFAULT_FROM_EMAIL,[bidder.email], fail_silently=True)
+                messages.info(request, "Sent receipt to %s" % (bidder.email))
             return redirect('/')
     else:
         form = CheckoutForm(initial={'email':b.email})
