@@ -5,6 +5,8 @@ from django.template import RequestContext
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.mail import send_mail
+from django.conf import settings
 
 from models import Bidder, Item, Purchase
 from forms import *
@@ -78,6 +80,7 @@ def purchase_item(request, item_id):
             if bidder and item and (quantity <= item.quantity_remaining() or item.quantity_remaining() == -1):
                 p = Purchase(bidder=bidder, item=item, quantity=quantity, unit_price=unit_price)
                 p.save()
+                send_mail("UMC School auction receipt","",settings.DEFAULT_FROM_EMAIL,[bidder.email], fail_silently=True)
                 messages.info(request, "%s successfully purchased %s" % (bidder.name, item.name))
                 return redirect(item)
         else:
