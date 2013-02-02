@@ -127,7 +127,7 @@ def checkout(request, bidder_id):
                 p.save()
             send_mail(
                 "UMC School auction receipt",
-                get_template('templates/auction/receipt.html').render(
+                get_template('auction/receipt.html').render(
                     Context({'bidder':bidder})
                 ),
                 settings.DEFAULT_FROM_EMAIL,[bidder.email], fail_silently=True
