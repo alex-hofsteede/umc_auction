@@ -28,6 +28,9 @@ urlpatterns = patterns('',
 
     url(r'^items/?$', views.items, name='items'),
     url(r'^items/(?P<item_id>\d+)/?$', views.item, name='item'),
+    url(r'^items/(?P<item_id>\d+)/delete/?$', views.delete_item, name='delete_item'),
+    url(r'^items/(?P<item_id>\d+)/delete/?$', views.delete_item, name='delete_item'),
+    url(r'^items/(?P<item_id>\d+)/edit/?$', views.edit_item, name='edit_item'),
     url(r'^items/new/?$', views.new_item, name='new_item'),
 
     url(r'^items/(?P<item_id>\d+)/purchase_item/?$', views.purchase_item, name='purchase_item'),

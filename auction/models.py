@@ -1,6 +1,14 @@
 from django.core.urlresolvers import reverse
 from django.db import models
 
+class NonDeletedManager(models.Manager):
+    def get_query_set(self):
+        return super(NonDeletedManager, self).get_query_set().filter(deleted=False)
+
+class DeletedManager(models.Manager):
+    def get_query_set(self):
+        return super(DeletedManager, self).get_query_set().filter(deleted=True)
+
 # Create your models here.
 class Bidder(models.Model):
     code = models.CharField(max_length=100)
@@ -18,12 +26,16 @@ class Bidder(models.Model):
         return reverse('bidder', args=(self.id,))
 
 class Item(models.Model):
+    objects = NonDeletedManager() # Custom manager only returns non deleted items
+    deleted_objects = DeletedManager() # Extra manager to get deleted objects
+
     code = models.CharField(max_length=100)
     name = models.CharField(max_length=1000)
     unit_price = models.FloatField(null=True)
     max_quantity = models.IntegerField(default=-1)
     fixed_price = models.BooleanField(default=False)
     description = models.TextField(blank=True)
+    deleted = models.BooleanField(default=False)
 
     def __unicode__(self):
         return "%s - %s" % (self.code, self.name)
@@ -44,8 +56,12 @@ class Item(models.Model):
         return 'unlimited' if qr == -1 else "%s / %s" % (qr, self.max_quantity)
 
 class Purchase(models.Model):
+    objects = NonDeletedManager() # Custom manager only returns non deleted items
+    deleted_objects = DeletedManager() # Extra manager to get deleted objects
+
     bidder = models.ForeignKey(Bidder, related_name='purchases')
     item = models.ForeignKey(Item, related_name='purchases')
     quantity = models.IntegerField(default=1)
     unit_price = models.FloatField(null=True)
     paid = models.BooleanField(default=False)
+    deleted = models.BooleanField(default=False)

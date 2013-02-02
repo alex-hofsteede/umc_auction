@@ -55,6 +55,7 @@ def new_item(request):
 
     return render_to_response('auction/new_item.html', {'form':form}, context_instance=RequestContext(request))
 
+
 @login_required
 def new_bidder(request):
     if request.method == 'POST': 
@@ -68,6 +69,30 @@ def new_bidder(request):
 
     return render_to_response('auction/new_bidder.html', {'form':form}, context_instance=RequestContext(request))
 
+@login_required
+def edit_item(request, item_id):
+    i = get_object_or_404(Item, id=item_id)
+    if request.method == 'POST':
+        form = ItemForm(request.POST, instance=i)
+        if form.is_valid():
+            form.save()
+            return redirect(i) #TODO notify if already created?
+    else:
+        form = ItemForm(instance=i)
+
+    return render_to_response('auction/edit_item.html', {'form':form}, context_instance=RequestContext(request))
+
+@login_required
+def delete_item(request, item_id):
+    i = get_object_or_404(Item, id=item_id)
+    if request.method == 'POST':
+        for p in i.purchases.all():
+            p.deleted = True;
+            p.save()
+        i.deleted = True
+        i.save()
+    return redirect('/items/')
+    
 @login_required
 def purchase_item(request, item_id):
     if request.method == 'POST':
