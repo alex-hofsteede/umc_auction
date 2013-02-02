@@ -1,13 +1,14 @@
 # Create your views here.
 from django.core.urlresolvers import reverse
 from django.shortcuts import render_to_response, get_object_or_404, redirect
-from django.template.loader import get_template
+from django.template.loader import render_to_string
 from django.template import RequestContext, Context
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.core.mail import send_mail
+from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
+from django.utils.html import strip_tags
 
 from models import Bidder, Item, Purchase
 from forms import *
@@ -125,13 +126,11 @@ def checkout(request, bidder_id):
             for p in bidder.purchases.all():
                 p.paid = True
                 p.save()
-            send_mail(
-                "UMC School auction receipt",
-                get_template('auction/receipt.html').render(
-                    Context({'bidder':bidder})
-                ),
-                settings.DEFAULT_FROM_EMAIL,[bidder.email], fail_silently=True
-            )
+            html_content = render_to_string('auction/receipt.html', {'bidder':bidder})
+            text_content = strip_tags(html_content)
+            msg = EmailMultiAlternatives("UMC School auction receipt", text_content, settings.DEFAULT_FROM_EMAIL, [bidder.email])
+            msg.attach_alternative(html_content, 'text/html')
+            msg.send()
             messages.info(request, "Sent receipt to %s" % (bidder.email))
             return redirect('/')
     else:
