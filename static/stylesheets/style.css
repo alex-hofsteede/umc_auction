@@ -1,4 +1,4 @@
-body { 
+body {
 font-family: 'Open Sans', sans-serif;
 margin: 0;
 padding: 0; 
@@ -155,4 +155,33 @@ padding: 10px;
   border-radius: 7px;
   background-color: #CCC;
   padding:10px;
+}
+
+form label {
+  width:150px;
+  display:inline-block;
+  vertical-align:top;
+}
+
+form input[type=submit] {
+  margin-left:155px;
+}
+
+form .helptext {
+  font-size:75%;
+  color:#999;
+  margin-left:155px;
+  display:block;
+}
+
+h3.item {
+  display:inline-block;
+}
+
+form.item {
+  display:inline;
+}
+
+form.item input {
+  margin-left:0;
 }

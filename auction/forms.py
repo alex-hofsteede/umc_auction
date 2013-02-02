@@ -5,6 +5,7 @@ from models import Item, Bidder
 class ItemForm(forms.ModelForm):
     class Meta:
         model = Item
+        exclude = ('deleted')
 
 class BidderForm(forms.ModelForm):
     class Meta:

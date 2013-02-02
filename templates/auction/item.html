@@ -1,21 +1,21 @@
 {% extends 'auction/base.html' %}
 
 {% block content %}
+<h3 class="item">Item {{item.code}}: {{item.name}}</h3>
 
-Name: {{item.name}}<br/>
-Code: {{item.code}}<br/>
-Unit Price: ${{item.unit_price}}<br/>
-{{item.quantity_sold}} sold<br/>
-{{item.quantity_remaining_str}} remaining<br/>
-
-<form action="{{item.get_absolute_url}}/edit" method="post">{% csrf_token %}
+<form class="item edit" action="{{item.get_absolute_url}}/edit" method="get">{% csrf_token %}
 <input type="submit" value="Edit" />
 </form>
 
-<form action="{{item.get_absolute_url}}/delete" method="post">{% csrf_token %}
+<form class="item delete" action="{{item.get_absolute_url}}/delete" method="post">{% csrf_token %}
 <input type="submit" value="Delete" onClick="return confirm('Are you sure you want to delete this item and all the purchases of this item?')"/>
 </form>
+<br/>
+Unit Price: ${{item.unit_price|floatformat:2}}<br/>
+{{item.quantity_sold}} sold<br/>
+{{item.quantity_remaining_str}} remaining<br/>
 
+<p>
 {% if item.quantity_sold > 0 %}
     <h3>People who purchased this item:</h3>
     <ul>

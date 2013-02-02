@@ -2,39 +2,14 @@
 
 {% block content %}
 
-<h3> United Methodist Co-op Nursery School silent auction receipt.</h3>
-United Methodist Co-op Nursery School 
-1443 Howard Avenue
-Burlingame, CA 94010
-650-323-1082
-<br/>
-Name: {{bidder.name}}
-<br/>
-Phone: {{bidder.phone}}
-<table>
-    <tr>
-        <th>Item #</th>
-        <th>Description</th>
-        <th>Fair market value</th>
-        <th>Amount</th>
-    </tr>
-{% for purchase in bidder.purchases.all %}
-<tr>
-    <td>{{purchase.item.code}}</td>
-    <td>{{purchase.item.description}}</td>
-    <td>{{purchase.item.unit_price}}</td>
-    <td>{{purchase.quantity}} @ ${{purchase.unit_price}}</td>
-</tr>
-{% endfor %}
-<tr>
-    <td colspan="2"></td>
-    <td>Total:</td>
-    <td>${{bidder.purchase_total}}</td>
-</tr>
-</table>
-<form action="" method="post">{% csrf_token %}
-{{form.as_p}}
-<input type="submit" value="Paid - send email receipt" />
-</form>
+{% include 'auction/receipt.html' %}
+<p>
+<div class="action">
+    <h3>Send Receipt</h3>
+    <form action="" method="post">{% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" value="Paid - send email receipt" />
+    </form>
+</div>
 {% endblock %}
 

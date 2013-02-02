@@ -31,9 +31,9 @@ class Item(models.Model):
 
     code = models.CharField(max_length=100)
     name = models.CharField(max_length=1000)
-    unit_price = models.FloatField(null=True)
-    max_quantity = models.IntegerField(default=-1)
-    fixed_price = models.BooleanField(default=False)
+    unit_price = models.FloatField(null=True, help_text="For non fixed-price items, this is the fair market price")
+    max_quantity = models.IntegerField(default=-1, help_text="Maximum number to be sold, -1 means unlimited")
+    fixed_price = models.BooleanField(default=False, help_text="If price is fixed, all buyers will get same price")
     description = models.TextField(blank=True)
     deleted = models.BooleanField(default=False)
 

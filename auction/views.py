@@ -1,7 +1,8 @@
 # Create your views here.
 from django.core.urlresolvers import reverse
 from django.shortcuts import render_to_response, get_object_or_404, redirect
-from django.template import RequestContext
+from django.template.loader import get_template
+from django.template import RequestContext, Context
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -124,7 +125,13 @@ def checkout(request, bidder_id):
             for p in bidder.purchases.all():
                 p.paid = True
                 p.save()
-                send_mail("UMC School auction receipt","",settings.DEFAULT_FROM_EMAIL,[bidder.email], fail_silently=True)
+                send_mail(
+                    "UMC School auction receipt",
+                    get_template('templates/auction/receipt.html').render(
+                        Context({'bidder':bidder})
+                    ),
+                    settings.DEFAULT_FROM_EMAIL,[bidder.email], fail_silently=True
+                )
                 messages.info(request, "Sent receipt to %s" % (bidder.email))
             return redirect('/')
     else:
