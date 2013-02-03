@@ -185,3 +185,24 @@ form.entity {
 form.entity input {
   margin-left:0;
 }
+
+form input[type=submit]:hover {
+  cursor: hand; 
+  cursor: pointer; 
+}
+
+form.delete input[type=submit] {
+  background : url("/static/images/delete_2.png") no-repeat center center;
+  width : 16px;
+  height : 16px;
+  border : none;
+  color : transparent;
+}
+
+form.edit input[type=submit] {
+  background : url("/static/images/edit_2.png") no-repeat center center;
+  width : 16px;
+  height : 16px;
+  border : none;
+  color : transparent;
+}
