@@ -33,8 +33,10 @@ urlpatterns = patterns('',
     url(r'^items/(?P<item_id>\d+)/delete/?$', views.delete_item, name='delete_item'),
     url(r'^items/(?P<item_id>\d+)/edit/?$', views.edit_item, name='edit_item'),
     url(r'^items/new/?$', views.new_item, name='new_item'),
-
     url(r'^items/(?P<item_id>\d+)/purchase_item/?$', views.purchase_item, name='purchase_item'),
+
+    url(r'^items/(?P<bidder_id>\d+)/purchases/(?P<purchase_id>\d+)/?$', views.purchase, name='purchase'),
+    url(r'^items/(?P<bidder_id>\d+)/purchases/(?P<purchase_id>\d+)/delete/?$', views.delete_purchase, name='delete_purchase'),
 )
 
 urlpatterns += staticfiles_urlpatterns()

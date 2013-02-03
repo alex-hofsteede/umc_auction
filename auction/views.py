@@ -127,6 +127,19 @@ def purchase_item(request, item_id):
     return redirect('/')
 
 @login_required
+def purchase(request, purchase_id):
+    return HttpResponse(purchase_id)
+
+@login_required
+def delete_purchase(request, bidder_id, purchase_id):
+    b = get_object_or_404(Bidder, id=bidder_id)
+    p = get_object_or_404(Purchase, bidder=b, id=purchase_id)
+    if request.method == 'POST':
+        p.deleted = True
+        p.save()
+    return redirect(b)
+    
+@login_required
 def checkout(request, bidder_id):
     bidder = get_object_or_404(Bidder, id=bidder_id)
     if request.method == 'POST':

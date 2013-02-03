@@ -69,3 +69,7 @@ class Purchase(models.Model):
     unit_price = models.FloatField(null=True)
     paid = models.BooleanField(default=False)
     deleted = models.BooleanField(default=False)
+
+    def get_absolute_url(self):
+        return reverse('purchase', args=(self.bidder_id, self.id))
+        
