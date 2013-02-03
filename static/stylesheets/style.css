@@ -174,14 +174,14 @@ form .helptext {
   display:block;
 }
 
-h3.item {
+h3.entity {
   display:inline-block;
 }
 
-form.item {
+form.entity {
   display:inline;
 }
 
-form.item input {
+form.entity input {
   margin-left:0;
 }

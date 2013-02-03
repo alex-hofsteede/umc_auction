@@ -2,7 +2,12 @@
 
 {% block content %}
 
-<h3>Bidder {{bidder.code}}: {{bidder.name}}</h3>
+<h3 class="entity">Bidder {{bidder.code}}: {{bidder.name}}</h3>
+
+<form class="entity delete" action="{{bidder.get_absolute_url}}/delete" method="post">{% csrf_token %}
+<input type="submit" value="Delete" onClick="return confirm('Are you sure you want to delete this bidder and all their purchases?')"/>
+</form>
+<br/>
 Email: {{bidder.email}}<br/>
 <h3>Purchases:</h3>
 <ul>

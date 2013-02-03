@@ -11,10 +11,14 @@ class DeletedManager(models.Manager):
 
 # Create your models here.
 class Bidder(models.Model):
+    objects = NonDeletedManager() # Custom manager only returns non deleted items
+    deleted_objects = DeletedManager() # Extra manager to get deleted objects
+
     code = models.CharField(max_length=100)
     name = models.CharField(max_length=100)
     phone = models.CharField(max_length=13, blank=True)
     email = models.CharField(max_length=100, blank=True)
+    deleted = models.BooleanField(default=False)
 
     def __unicode__(self):
         return "%s - %s" % (self.code, self.name)

@@ -94,6 +94,17 @@ def delete_item(request, item_id):
         i.deleted = True
         i.save()
     return redirect('/items/')
+
+@login_required
+def delete_bidder(request, bidder_id):
+    b = get_object_or_404(Bidder, id=bidder_id)
+    if request.method == 'POST':
+        for p in b.purchases.all():
+            p.deleted = True;
+            p.save()
+        b.deleted = True
+        b.save()
+    return redirect('/bidders/')
     
 @login_required
 def purchase_item(request, item_id):
