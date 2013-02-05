@@ -25,6 +25,7 @@ urlpatterns = patterns('',
     url(r'^bidders/(?P<bidder_id>\d+)/?$', views.bidder, name='bidder'),
     url(r'^bidders/new/?$', views.new_bidder, name='new_bidder'),
     url(r'^bidders/(?P<bidder_id>\d+)/checkout/?$', views.checkout, name='checkout'),
+    url(r'^bidders/(?P<bidder_id>\d+)/edit/?$', views.edit_bidder, name='edit_bidder'),
     url(r'^bidders/(?P<bidder_id>\d+)/delete/?$', views.delete_bidder, name='delete_bidder'),
 
     url(r'^items/?$', views.items, name='items'),

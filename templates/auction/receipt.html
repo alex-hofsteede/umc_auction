@@ -42,6 +42,13 @@ Phone: {{bidder.phone}}
     <td>{{purchase.quantity}} @ ${{purchase.unit_price|floatformat:2}}</td>
 </tr>
 {% endfor %}
+{% if bidder.credit %}
+<tr>
+    <td colspan="2"></td>
+    <td>Credit:</td>
+    <td>${{bidder.credit|floatformat:2}}</td>
+</tr>
+{% endif %}
 <tr>
     <td colspan="2"></td>
     <td>Total:</td>

@@ -82,7 +82,20 @@ def edit_item(request, item_id):
     else:
         form = ItemForm(instance=i)
 
-    return render_to_response('auction/edit_item.html', {'form':form}, context_instance=RequestContext(request))
+    return render_to_response('auction/edit_model.html', {'model_name':'Item', 'form':form}, context_instance=RequestContext(request))
+
+@login_required
+def edit_bidder(request, bidder_id):
+    b = get_object_or_404(Bidder, id=bidder_id)
+    if request.method == 'POST':
+        form = BidderForm(request.POST, instance=b)
+        if form.is_valid():
+            form.save()
+            return redirect(b) #TODO notify if already created?
+    else:
+        form = BidderForm(instance=b)
+
+    return render_to_response('auction/edit_model.html', {'model_name':'Bidder', 'form':form}, context_instance=RequestContext(request))
 
 @login_required
 def delete_item(request, item_id):

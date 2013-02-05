@@ -18,13 +18,14 @@ class Bidder(models.Model):
     name = models.CharField(max_length=100)
     phone = models.CharField(max_length=13, blank=True)
     email = models.CharField(max_length=100, blank=True)
+    credit = models.FloatField(null=True)
     deleted = models.BooleanField(default=False)
 
     def __unicode__(self):
         return "%s - %s" % (self.code, self.name)
 
     def purchase_total(self):
-        return sum(map(lambda x: x.unit_price * x.quantity, self.purchases.all()))
+        return sum(map(lambda x: x.unit_price * x.quantity, self.purchases.all())) - (self.credit or 0)
 
     def get_absolute_url(self):
         return reverse('bidder', args=(self.id,))
