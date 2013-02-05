@@ -10,6 +10,7 @@ class ItemForm(forms.ModelForm):
 class BidderForm(forms.ModelForm):
     class Meta:
         model = Bidder
+        exclude = ('deleted')
 
 class PurchaseForm(forms.Form):
     bidder = forms.ModelChoiceField(queryset=Bidder.objects.all())
