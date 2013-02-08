@@ -19,11 +19,13 @@ def index(request):
 
 @login_required
 def items(request):
-    return render_to_response('auction/items.html', {'items':Item.objects.all()}, context_instance=RequestContext(request))
+    query = request.GET.get('query', '')
+    return render_to_response('auction/items.html', {'items':Item.search(query), 'query':query}, context_instance=RequestContext(request))
 
 @login_required
 def bidders(request):
-    return render_to_response('auction/bidders.html', {'bidders':Bidder.objects.all()}, context_instance=RequestContext(request))
+    query = request.GET.get('query', '')
+    return render_to_response('auction/bidders.html', {'bidders':Bidder.search(query), 'query':query}, context_instance=RequestContext(request))
 
 @login_required
 def item(request, item_id):

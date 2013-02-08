@@ -2,7 +2,11 @@
 
 {% block content %}
 
-<h3>Bidders</h3>
+<h3 class="inline">Bidders</h3>
+<form class="inline" action="" method="get">
+    <input type="text" name="query" value="{{query}}"/>
+    <input type="submit" value="Search"/>
+</form>
 <ul>
 {% for bidder in bidders %}
     <li>
