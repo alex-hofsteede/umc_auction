@@ -33,9 +33,9 @@ class Bidder(models.Model):
     @classmethod
     def search(cls, query=None):
         if query:
-            return cls.objects.filter(models.Q(code__icontains=query) | models.Q(name__icontains=query))
+            return cls.objects.filter(models.Q(code__icontains=query) | models.Q(name__icontains=query)).order_by('code')
         else:
-            return cls.objects.all()
+            return cls.objects.order_by('code')
 
 class Item(models.Model):
     objects = NonDeletedManager() # Custom manager only returns non deleted items
@@ -70,9 +70,9 @@ class Item(models.Model):
     @classmethod
     def search(cls, query=None):
         if query and query != '':
-            return cls.objects.filter(models.Q(code__icontains=query) | models.Q(description__icontains=query) | models.Q(name__icontains=query))
+            return cls.objects.filter(models.Q(code__icontains=query) | models.Q(description__icontains=query) | models.Q(name__icontains=query)).order_by('code')
         else:
-            return cls.objects.all()
+            return cls.objects.order_by('code')
 
 class Purchase(models.Model):
     objects = NonDeletedManager() # Custom manager only returns non deleted items

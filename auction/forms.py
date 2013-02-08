@@ -13,7 +13,7 @@ class BidderForm(forms.ModelForm):
         exclude = ('deleted')
 
 class PurchaseForm(forms.Form):
-    bidder = forms.ModelChoiceField(queryset=Bidder.objects.all())
+    bidder = forms.ModelChoiceField(queryset=Bidder.objects.order_by('code'))
     unit_price = forms.FloatField(required=False) 
     quantity = forms.IntegerField()
 
