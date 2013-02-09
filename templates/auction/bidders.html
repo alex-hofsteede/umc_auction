@@ -7,12 +7,20 @@
     <input type="text" name="query" value="{{query}}"/>
     <input type="submit" value="Search"/>
 </form>
-<ul>
+<table>
+    <tr>
+        <th>Code</th>
+        <th>Name</th>
+        <th>Purchases</th>
+    </tr>
 {% for bidder in bidders %}
-    <li>
-    <a href="{{bidder.get_absolute_url}}">{{bidder.code}}, {{bidder.name}}</a>
-    </li>
+    <tr>
+        <td><a href="{{bidder.get_absolute_url}}">{{bidder.code}}</a></td>
+        <td><a href="{{bidder.get_absolute_url}}">{{bidder.name}}</a></td>
+        <td><a href="{{bidder.get_absolute_url}}">{{bidder.purchases.count}}</a></td>
+    </tr>
 {% endfor %}
-</ul>
+</table>
+<p>
 <a href="/bidders/new">Create new bidder</a>
 {% endblock %}

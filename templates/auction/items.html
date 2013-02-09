@@ -6,13 +6,18 @@
     <input type="text" name="query" value="{{query}}"/>
     <input type="submit" value="Search"/>
 </form>
-<ul id="items-list">
+<table id="items-list">
+    <tr>
+        <th>Code</th>
+        <th>Name</th>
+    </tr>
 {% for item in items %}
-    <li {% if item.quantity_remaining == 0 %}class="complete" {% endif %}>
-    <a href="{{item.get_absolute_url}}" >{{item.code}}, {{item.name}}</a>
-    
-    </li>
+    <tr {% if item.quantity_remaining == 0 %}class="complete" {% endif %}>
+        <td><a href="{{item.get_absolute_url}}" >{{item.code}}</a></td>
+        <td><a href="{{item.get_absolute_url}}" >{{item.name}}</a></td>
+    </tr>
 {% endfor %}
-</ul>
+</table>
+<p>
 <a href="/items/new">Create new item</a>
 {% endblock %}
