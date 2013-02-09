@@ -207,3 +207,7 @@ form.edit input[type=submit] {
   border : none;
   color : transparent;
 }
+
+#items-list .complete {
+  background-color: #99FF99;
+}
