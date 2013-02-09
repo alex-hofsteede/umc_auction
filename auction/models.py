@@ -18,7 +18,7 @@ class Bidder(models.Model):
     name = models.CharField(max_length=100)
     phone = models.CharField(max_length=13, blank=True)
     email = models.CharField(max_length=100, blank=True)
-    credit = models.FloatField(null=True, blank=True)
+    credit = models.FloatField(null=True, blank=True, default=0)
     deleted = models.BooleanField(default=False)
     
     def __unicode__(self):

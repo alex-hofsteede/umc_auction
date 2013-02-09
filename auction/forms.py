@@ -15,7 +15,7 @@ class BidderForm(forms.ModelForm):
 class PurchaseForm(forms.Form):
     bidder = forms.ModelChoiceField(queryset=Bidder.objects.order_by('code'))
     unit_price = forms.FloatField(required=False) 
-    quantity = forms.IntegerField()
+    quantity = forms.IntegerField(initial=1)
 
     def __init__(self, *args, **kwargs):
         hide_price = kwargs.pop('hide_price', False)
