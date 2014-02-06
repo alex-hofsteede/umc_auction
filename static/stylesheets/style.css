@@ -208,6 +208,6 @@ form.edit input[type=submit] {
   color : transparent;
 }
 
-#items-list .complete {
+tr.complete {
   background-color: #99FF99;
 }
