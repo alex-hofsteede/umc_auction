@@ -21,7 +21,7 @@ Unit Price: ${{item.unit_price|floatformat:2}}<br/>
     <ul>
     {% for purchase in item.purchases.all %}
     <li>
-    <a href="{{purchase.bidder.get_absolute_url}}">{{purchase.bidder.code}}, {{purchase.bidder.name}}, ({{purchase.quantity}} purchased)</a>
+    <a href="{{purchase.bidder.get_absolute_url}}">{{purchase.bidder.code}}, {{purchase.bidder.name}}, (x{{purchase.quantity}})</a>
     </li>
     {% endfor %}
     </ul>

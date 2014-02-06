@@ -25,7 +25,7 @@ def items(request):
 @login_required
 def bidders(request):
     query = request.GET.get('query', '')
-    return render_to_response('auction/bidders.html', {'bidders':Bidder.search(query), 'query':query}, context_instance=RequestContext(request))
+    return render_to_response('auction/bidders.html', {'bidders':Bidder.search(query).order_by('name'), 'query':query}, context_instance=RequestContext(request))
 
 @login_required
 def item(request, item_id):

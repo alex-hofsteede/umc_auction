@@ -18,7 +18,7 @@ Email: {{bidder.email}}<br/>
 <ul>
 {% for purchase in bidder.purchases.all %}
 <li>
-    <a href="{{purchase.item.get_absolute_url}}">{{purchase.item.code}}, {{purchase.item.name}}</a>
+<a href="{{purchase.item.get_absolute_url}}">{{purchase.quantity}}x {{purchase.item.code}}, {{purchase.item.name}}</a>
     <form class="inline delete" action="{{purchase.get_absolute_url}}/delete" method="post">{% csrf_token %}
     <input type="submit" value="Delete" onClick="return confirm('Are you sure you want to remove this purchase?')"/>
     </form>
