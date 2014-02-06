@@ -161,6 +161,7 @@ def checkout(request, bidder_id):
         form = CheckoutForm(request.POST)
         if form.is_valid():
             bidder.email = form.cleaned_data['email']
+            bidder.checked_out = True
             bidder.save()
             for p in bidder.purchases.all():
                 p.paid = True

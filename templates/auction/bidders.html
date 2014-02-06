@@ -14,7 +14,7 @@
         <th>Purchases</th>
     </tr>
 {% for bidder in bidders %}
-    <tr>
+    <tr {% if bidder.checked_out %}class="complete" {% endif %}>
         <td><a href="{{bidder.get_absolute_url}}">{{bidder.code}}</a></td>
         <td><a href="{{bidder.get_absolute_url}}">{{bidder.name}}</a></td>
         <td><a href="{{bidder.get_absolute_url}}">{{bidder.purchases.count}}</a></td>

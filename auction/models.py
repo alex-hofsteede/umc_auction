@@ -20,6 +20,7 @@ class Bidder(models.Model):
     email = models.CharField(max_length=100, blank=True)
     credit = models.FloatField(null=True, blank=True, default=0)
     deleted = models.BooleanField(default=False)
+    checked_out = models.BooleanField(default=False)
     
     def __unicode__(self):
         return "%s - %s" % (self.code, self.name)
