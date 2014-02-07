@@ -30,9 +30,41 @@ Unit Price: ${{item.unit_price|floatformat:2}}<br/>
 <div class="action">
     <h3>Purchase item:</h3>
     <form action="{{item.get_absolute_url}}/purchase_item" method="post">{% csrf_token %}
+    <input id="prompt"/>
     {{purchase_form.as_p}}
     <input type="submit" value="Submit" />
     </form>
 </div>
 {% endif %}
+
+<script type="text/javascript">
+    var select = document.getElementById('id_bidder');
+    var bidders = select.children;//.getElementsByTagName('option');
+    var opts = []
+    for (var i = 1; i < bidders.length; i++) {
+        opts.push(bidders[i]);//([bidders[i].getAttribute('value'), bidders[i].textContent]);
+    }
+
+    var prompt = document.getElementById('prompt');
+    prompt.onkeyup = function(e){
+        select.innerHTML = '';
+        var rxp = new RegExp(e.srcElement.value, 'i');
+        opts.forEach(function (opt) {
+            if (rxp.test(opt.textContent)) {
+                select.appendChild(opt);
+            }
+        });
+        if (e.srcElement.value == '') {
+            select.removeAttribute('multiple');
+        } else {
+            select.setAttribute('multiple', 'multiple');
+        }
+    }
+
+    select.onclick = function() {
+        if (select.getAttribute('multiple')) {
+            select.removeAttribute('multiple');
+        }
+    }
+</script>
 {% endblock %}
