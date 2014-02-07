@@ -30,7 +30,6 @@ Unit Price: ${{item.unit_price|floatformat:2}}<br/>
 <div class="action">
     <h3>Purchase item:</h3>
     <form action="{{item.get_absolute_url}}/purchase_item" method="post">{% csrf_token %}
-    <input id="prompt"/>
     {{purchase_form.as_p}}
     <input type="submit" value="Submit" />
     </form>
@@ -45,7 +44,7 @@ Unit Price: ${{item.unit_price|floatformat:2}}<br/>
         opts.push(bidders[i]);//([bidders[i].getAttribute('value'), bidders[i].textContent]);
     }
 
-    var prompt = document.getElementById('prompt');
+    var prompt = select.parentNode.insertBefore(document.createElement('input'), select);
     prompt.onkeyup = function(e){
         select.innerHTML = '';
         var rxp = new RegExp(e.srcElement.value, 'i');
